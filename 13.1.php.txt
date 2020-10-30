@@ -1,0 +1,39 @@
+<?php
+require_once 'vendor/autoload.php';
+use MathPHP\LinearAlgebra\Matrix;
+use MathPHP\LinearAlgebra\MatrixFactory;
+function echo_matrix($input)
+{
+	$AB_array = $input->getMatrix();
+	for($i=0;$i<$input->getM();$i++)
+{
+	for($j=0;$j<$input->getN();$j++)
+	{
+		echo $AB_array[$i][$j]." ";
+	}
+	echo"\n";
+}
+}
+echo"Input size (m n p): ";
+$input=trim(fgets(STDIN));
+$a=explode(" ",$input);
+$m=$a[0];
+$n=$a[1];
+$p=$a[2];
+echo "Input Matrix A(".$m."x".$n.") :\n";
+$A=[];
+for($i=0;$i<$m;$i++)
+{
+$A[$i]=explode(" ",trim(fgets(STDIN)));
+}
+$ma = MatrixFactory::create($A);
+echo "Input Matrix B(".$n."x".$p.") :\n";
+$B=[];
+for($i=0;$i<$n;$i++)
+{
+$B[$i]=explode(" ",trim(fgets(STDIN)));
+}
+$mb = MatrixFactory::create($B);
+$AB = $ma->multiply($mb);
+echo "The result matrix C(".$m."x".$p."):\n";
+echo echo_matrix($AB);
